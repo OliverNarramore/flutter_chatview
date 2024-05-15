@@ -482,7 +482,7 @@ ChatView(
 )
 ```
 
-19.  Flag `enableOtherUserName` to hide user name in chat.
+20.  Flag `enableOtherUserName` to hide user name in chat.
 
 ```dart
 ChatView(
@@ -495,6 +495,24 @@ ChatView(
 )
 ```
 
+21. Added `emojiPickerSheetConfig` for configuration of emoji picker sheet.
+
+```dart
+ChatView(
+   ...
+      emojiPickerSheetConfig: const Config(
+        columns: 7,
+        emojiSizeMax: 32
+        initCategory: Category.RECENT,
+        bgColor: Colors.white,
+        recentTabBehavior: RecentTabBehavior.NONE,
+        recentsLimit: 28,
+      ),
+        
+  ...
+ 
+)
+```
 
 
 ## How to use
