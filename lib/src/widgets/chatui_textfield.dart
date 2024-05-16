@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 import 'dart:async';
-import 'dart:io' show Platform;
+import 'dart:io' show File, Platform;
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:chatview/src/utils/constants/constants.dart';
@@ -85,6 +85,9 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
   TextFieldConfiguration? get textFieldConfig =>
       sendMessageConfig?.textFieldConfig;
 
+  CancelRecordConfiguration? get cancelRecordConfiguration =>
+      sendMessageConfig?.cancelRecordConfiguration;
+
   OutlineInputBorder get _outLineBorder => OutlineInputBorder(
         borderSide: const BorderSide(color: Colors.transparent),
         borderRadius: textFieldConfig?.borderRadius ??
@@ -144,11 +147,16 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
             children: [
               if (isRecordingValue && controller != null && !kIsWeb)
                 AudioWaveforms(
-                  size: Size(MediaQuery.of(context).size.width * 0.75, 50),
+                  size: Size(
+                      MediaQuery.of(context).size.width *
+                          (cancelRecordConfiguration != null ? 0.65 : 0.75),
+                      50),
                   recorderController: controller!,
                   margin: voiceRecordingConfig?.margin,
                   padding: voiceRecordingConfig?.padding ??
-                      const EdgeInsets.symmetric(horizontal: 8),
+                      EdgeInsets.symmetric(
+                        horizontal: cancelRecordConfiguration != null ? 5 : 8,
+                      ),
                   decoration: voiceRecordingConfig?.decoration ??
                       BoxDecoration(
                         color: voiceRecordingConfig?.backgroundColor,
@@ -266,7 +274,21 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                                     : voiceRecordingConfig?.stopIcon) ??
                                 Icon(isRecordingValue ? Icons.stop : Icons.mic),
                             color: voiceRecordingConfig?.recorderIconColor,
-                          )
+                          ),
+                        if (isRecordingValue &&
+                            cancelRecordConfiguration != null)
+                          IconButton(
+                            onPressed: () {
+                              cancelRecordConfiguration?.onCancelVoiceRecord
+                                  ?.call();
+                              _cancelRecording();
+                            },
+                            icon: cancelRecordConfiguration?.cancelRecordIcon ??
+                                const Icon(Icons.cancel_outlined),
+                            color: cancelRecordConfiguration
+                                    ?.cancelRecordIconColor ??
+                                voiceRecordingConfig?.recorderIconColor,
+                          ),
                       ],
                     );
                   }
@@ -277,6 +299,24 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
         },
       ),
     );
+  }
+
+  Future<void> _cancelRecording() async {
+    assert(
+      defaultTargetPlatform == TargetPlatform.iOS ||
+          defaultTargetPlatform == TargetPlatform.android,
+      "Voice messages are only supported with android and ios platform",
+    );
+    if (isRecording.value) {
+      final path = await controller?.stop();
+      final file = File(path ?? '');
+
+      if (await file.exists()) {
+        await file.delete();
+      }
+
+      isRecording.value = false;
+    }
   }
 
   Future<void> _recordOrStop() async {

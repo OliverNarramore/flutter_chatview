@@ -1,4 +1,6 @@
 ## [1.3.2] (Unreleased)
+* **Fix**: [137](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/issues/137) Added
+  support for cancel voice recording and field to provide cancel record icon.
 * **Fix**: [126](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/issues/126) Added
   flag to hide user name in chat.
 * **Feat**: [161](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/pull/161) Added

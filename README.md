@@ -482,7 +482,7 @@ ChatView(
 )
 ```
 
-19.  Flag `enableOtherUserName` to hide user name in chat.
+20.  Flag `enableOtherUserName` to hide user name in chat.
 
 ```dart
 ChatView(
@@ -495,6 +495,29 @@ ChatView(
 )
 ```
 
+
+21. Field `cancelRecordConfiguration` to provide an configuration to cancel voice record message.
+
+```dart
+ChatView(
+   ...
+      sendMessageConfig: SendMessageConfiguration(
+        ...
+           cancelRecordConfiguration: CancelRecordConfiguration(
+            cancelRecordIcon: const Icon(
+              Icons.cancel_outlined,
+            ),
+            onCancelVoiceRecord: () {
+              debugPrint('Voice recording cancelled');
+            },
+            cancelRecordIconColor: Colors.black,
+           ),
+        ...
+      ),
+   ...
+
+)
+```
 
 
 ## How to use
