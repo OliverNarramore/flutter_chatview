@@ -30,6 +30,9 @@ class ProfileCircleConfiguration {
   /// Provides image url of user
   final String? profileImageUrl;
 
+  /// Provides profile picture's data in base64 string
+  final String? profilePhotoBase64Data;
+
   /// Used for give bottom padding to profile circle
   final double? bottomPadding;
 
@@ -49,5 +52,6 @@ class ProfileCircleConfiguration {
     this.bottomPadding,
     this.circleRadius,
     this.onAvatarLongPress,
+    this.profilePhotoBase64Data,
   });
 }

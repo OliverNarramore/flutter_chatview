@@ -482,7 +482,7 @@ ChatView(
 )
 ```
 
-19.  Flag `enableOtherUserName` to hide user name in chat.
+20.  Flag `enableOtherUserName` to hide user name in chat.
 
 ```dart
 ChatView(
@@ -492,6 +492,29 @@ ChatView(
       ),
    ...
 
+)
+```
+
+21.  Field `profilePhotoBase64Data` for support of profile picture in base64 string data.
+
+```dart
+final chatController = ChatController(
+  ...
+    chatUsers: [
+      ChatUser(
+        id: '1',
+        name: 'Simform',
+        profilePhotoBase64Data: '',
+      ),
+    ],
+  ...
+);
+ChatView(
+   ...
+      profileCircleConfig: const ProfileCircleConfiguration(
+        profilePhotoBase64Data: '',
+      ),
+   ...
 )
 ```
 

@@ -34,6 +34,7 @@ class TypingIndicator extends StatefulWidget {
     this.profilePic,
     this.chatBubbleConfig,
     this.typeIndicatorConfig,
+    this.profilePicBase64Data,
   }) : super(key: key);
 
   /// Allow user to turn on/off typing indicator.
@@ -41,6 +42,9 @@ class TypingIndicator extends StatefulWidget {
 
   /// Represents profile picture url of user.
   final String? profilePic;
+
+  /// Provides profile picture's data in base64 string
+  final String? profilePicBase64Data;
 
   /// Provides configurations related to chat bubble such as padding, margin, max
   /// width etc.
@@ -237,6 +241,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
             ProfileCircle(
               bottomPadding: 0,
               imageUrl: widget.profilePic,
+              imageBase64Data: widget.profilePicBase64Data,
             ),
             bubble,
           ],

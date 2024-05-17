@@ -19,8 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import 'package:flutter/material.dart';
+import 'dart:convert';
+
 import 'package:chatview/src/utils/constants/constants.dart';
+import 'package:flutter/material.dart';
 
 class ProfileCircle extends StatelessWidget {
   const ProfileCircle({
@@ -31,6 +33,7 @@ class ProfileCircle extends StatelessWidget {
     this.circleRadius,
     this.onTap,
     this.onLongPress,
+    this.imageBase64Data,
   }) : super(key: key);
 
   /// Allow users to give  default bottom padding according to user case.
@@ -38,6 +41,9 @@ class ProfileCircle extends StatelessWidget {
 
   /// Allow user to pass image url of user's profile picture.
   final String? imageUrl;
+
+  /// Provides profile picture's data in base64 string
+  final String? imageBase64Data;
 
   /// Allow user to set whole padding of profile circle view.
   final EdgeInsetsGeometry? profileCirclePadding;
@@ -61,7 +67,9 @@ class ProfileCircle extends StatelessWidget {
         onTap: onTap,
         child: CircleAvatar(
           radius: circleRadius ?? 16,
-          backgroundImage: NetworkImage(imageUrl ?? profileImage),
+          backgroundImage: imageBase64Data != null
+              ? MemoryImage(base64Decode(imageBase64Data!))
+              : NetworkImage(imageUrl ?? profileImage) as ImageProvider,
         ),
       ),
     );

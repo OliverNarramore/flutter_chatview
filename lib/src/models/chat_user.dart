@@ -29,21 +29,30 @@ class ChatUser {
   /// Provides profile picture URL of user.
   final String? profilePhoto;
 
+  /// Provides profile picture's data in base64 string
+  final String? profilePhotoBase64Data;
+
   ChatUser({
     required this.id,
     required this.name,
     this.profilePhoto,
-  });
+    this.profilePhotoBase64Data,
+  }) : assert(
+          !(profilePhoto != null && profilePhotoBase64Data != null),
+          'Please provide either profilePhoto or profilePhotoData',
+        );
 
   factory ChatUser.fromJson(Map<String, dynamic> json) => ChatUser(
         id: json["id"],
         name: json["name"],
         profilePhoto: json["profilePhoto"],
+        profilePhotoBase64Data: json['profilePhotoBase64Data'],
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'profilePhoto': profilePhoto,
+        'profilePhotoData': profilePhotoBase64Data,
       };
 }
