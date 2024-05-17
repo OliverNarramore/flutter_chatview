@@ -336,14 +336,17 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
           longPressAnimationDuration:
               widget.chatBubbleConfig?.longPressAnimationDuration,
           onDoubleTap: featureActiveConfig?.enableDoubleTapToLike ?? false
-              ? widget.chatBubbleConfig?.onDoubleTap ??
-                  (message) => currentUser != null
-                      ? chatController?.setReaction(
-                          emoji: heart,
-                          messageId: message.id,
-                          userId: currentUser!.id,
-                        )
-                      : null
+              ? (message) {
+                  chatController?.setReaction(
+                    emoji: heart,
+                    messageId: message.id,
+                    userId: currentUser!.id,
+                  );
+                  widget.chatBubbleConfig?.onDoubleTap?.call(
+                    message,
+                    heart,
+                  );
+                }
               : null,
           shouldHighlight: widget.shouldHighlight,
           controller: chatController,

@@ -482,7 +482,7 @@ ChatView(
 )
 ```
 
-19.  Flag `enableOtherUserName` to hide user name in chat.
+20.  Flag `enableOtherUserName` to hide user name in chat.
 
 ```dart
 ChatView(

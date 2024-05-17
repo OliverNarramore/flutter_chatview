@@ -45,7 +45,7 @@ class ChatBubbleConfiguration {
   final ChatBubble? outgoingChatBubbleConfig;
 
   /// Provides callback when user tap twice on chat bubble.
-  final MessageCallBack? onDoubleTap;
+  final ReactionCallback? onDoubleTap;
 
   final ReceiptsWidgetConfig? receiptsWidgetConfig;
 
